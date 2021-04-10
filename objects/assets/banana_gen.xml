@@ -1,0 +1,12 @@
+<mujoco model="banana">
+    <compiler angle="radian" meshdir="meshes/" />
+    <size njmax="500" nconmax="100" />
+    <asset>
+        <mesh name="banana" file="banana.stl" />
+        <mesh name="banana_collision" file="banana_collision.stl" />
+    </asset>
+    <worldbody>
+        <geom type="mesh" contype="0" conaffinity="0" group="1" rgba="1 1 0.4 1" mesh="banana" />
+        <geom type="mesh" rgba="1 1 0.4 1" mesh="banana_collision" />
+    </worldbody>
+</mujoco>

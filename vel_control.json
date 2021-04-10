@@ -1,0 +1,11 @@
+{
+    "type" : "JOINT_VELOCITY",
+    "input_max": 10,
+    "input_min": -10,
+    "output_max": 10,
+    "output_min": -10,
+    "kp": 3,
+    "velocity_limits": [-1,1],
+    "interpolation": null,
+    "ramp_ratio": 0.2
+}
