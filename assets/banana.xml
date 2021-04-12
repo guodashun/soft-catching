@@ -9,7 +9,7 @@
         <body>
             <body name="object">
                 <inertial pos="0 0 0" quat="0 0 0 1" mass="1" fullinertia="1 1 1 0 0 0" />
-                <geom pos="0 0 0" type="mesh" contype="1" conaffinity="1" group="1" rgba="1 1 0.4 1" mesh="banana" friction="1 0.005 0.0001" solimp="0.9 0.95 0.1" solref="-500 -60"/>
+                <geom pos="0 0 0" type="mesh" contype="1" conaffinity="1" group="1" rgba="1 1 0.4 1" mesh="banana" friction="1 0.005 0.0001" solimp="0.9 0.95 0.1" solref="-500 -100"/>  <!-- 第一个值 第二个值 -->
             </body>
         </body>
     </worldbody>

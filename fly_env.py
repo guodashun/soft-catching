@@ -68,7 +68,7 @@ class FlyEnv(SingleArmEnv):
         super()._reset_internal()
         
         # reset ur5 joint
-        init_qpos = np.array([-0.470, -1.735, 2.480, -2.275, 0, -0.420])
+        init_qpos = np.array([-0.470, -1.735, 2.480, -2.275, 1.57, -0.420])
         self.sim.data.qpos[self.robots[0]._ref_joint_pos_indexes] = init_qpos
 
         # Reset all object positions using initializer sampler if we're not directly loading from an xml
@@ -76,7 +76,6 @@ class FlyEnv(SingleArmEnv):
         self.banana_body_id = self.sim.model.body_name2id(self.banana.root_body)
         eef_pos_xy = self.sim.data.site_xpos[self.robots[0].eef_site_id][:2]
         self.sim.data.set_joint_qpos(self.banana.joints[0], [eef_pos_xy[0], eef_pos_xy[1]+0.05,2,0,0,0,1])
-
 
     def reward(self, action):
         return 1.0
