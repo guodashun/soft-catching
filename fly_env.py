@@ -6,6 +6,7 @@ from robosuite.models import arenas
 from robosuite.models.tasks import ManipulationTask
 from robosuite.models.arenas import EmptyArena
 from robosuite.models.objects import BallObject
+from robosuite.utils.observables import Observable, sensor
 from objects.banana import BananaObject
 from robosuite.utils.placement_samplers import UniformRandomSampler
 
@@ -62,6 +63,38 @@ class FlyEnv(SingleArmEnv):
             mujoco_robots=[robot.robot_model for robot in self.robots],
             mujoco_objects=self.banana,
         )
+
+    def _setup_observables(self):
+        observables = super()._setup_observables()
+
+        if self.use_object_obs:
+            pf = self.robots[0].robot_model.naming_prefix
+            modality = "object"
+
+            @sensor(modality=modality)
+            def banana_pos(obs_cache):
+                return np.array(self.sim.data.body_xpos[self.banana_body_id])
+
+            @sensor(modality=modality)
+            def banana_qpos(obs_cache):
+                return np.array(self.sim.data.body_xquat[self.banana_body_id])
+            
+            @sensor(modality=modality)
+            def banana_to_eef_pos(obs_cache):
+                return obs_cache["banana_pos"] - obs_cache[f"{pf}eef_pos"] if\
+                    "banana_pos" in obs_cache and f"{pf}eef_pos" in obs_cache else np.zeros(3)
+
+            sensors = [banana_pos, banana_qpos, banana_to_eef_pos]
+            names = [s.__name__ for s in sensors]
+
+            for name, s in zip(names, sensors):
+                observables[name] = Observable(
+                    name=name,
+                    sensor=s,
+                    sampling_rate=self.control_freq
+                )
+
+        return observables
 
     def _reset_internal(self):
 

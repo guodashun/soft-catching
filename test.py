@@ -36,6 +36,7 @@ env  =    suite.make(
         robots=['UR5e'],
         gripper_types="PlateGripper", # PlateGripper Robotiq140Gripper
         controller_configs=controller_config,
+        use_object_obs=True,
         use_camera_obs=False,
         has_renderer=True,
         render_camera=None,
@@ -56,6 +57,7 @@ while True:
     obs, _,_,_ = env.step(action)
     controller = env.robots[0].controller
     sensor_data = env.robots[0].get_sensor_measurement("gripper0_force_ee")
+    # print(obs)
     # print("goal vel", controller.goal_vel, controller.last_err)
     # print("first joint vel: ",obs['robot0_joint_vel'][0])
     # print("sensor data:", sensor_data)
