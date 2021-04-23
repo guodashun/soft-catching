@@ -131,3 +131,4 @@ dmypy.json
 # data 
 *speed*.npy
 force_data.npy
+force_data/*
